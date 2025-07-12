@@ -1,0 +1,10 @@
+Arquivos importantes:
+
+1-) escala_trabalho_hands_on.ipynb
+2-) api_escala_trabalho.py
+
+Próximos passos:
+
+1-) Remover parâmetro usar_reparo do endpoint /otimizar
+2-) testar reparar
+3-) pedir para criar uma página em react para essa aplicação
