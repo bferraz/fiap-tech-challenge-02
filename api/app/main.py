@@ -38,19 +38,3 @@ def create_application() -> FastAPI:
 
 
 app = create_application()
-
-
-@app.get("/")
-async def root():
-    """Health check endpoint"""
-    return {
-        "status": "healthy",
-        "service": settings.APP_NAME,
-        "version": settings.VERSION
-    }
-
-
-@app.get("/health")
-async def health_check():
-    """Health check endpoint para load balancers"""
-    return {"status": "healthy"}
