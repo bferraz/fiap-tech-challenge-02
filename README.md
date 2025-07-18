@@ -72,12 +72,13 @@ docker run -p 8000:8000 escalas-api
 ```bash
 # Executar testes
 pytest tests/
+```
 
 ## ⚙️ Configurações
 
 Configurações podem ser definidas via variáveis de ambiente ou arquivo `.env`:
 
-```env
+```bash
 APP_NAME=API de Otimização de Escalas de Trabalho
 DEBUG=True
 HOST=0.0.0.0
