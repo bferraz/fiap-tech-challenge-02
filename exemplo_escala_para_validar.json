@@ -3,21 +3,21 @@
     "1": {
       "segunda": {
         "manha": 0,
-        "tarde": 1,
+        "tarde": 0,
         "noite": 0
       },
       "terça": {
-        "manha": 1,
+        "manha": 0,
         "tarde": 0,
         "noite": 0
       },
       "quarta": {
-        "manha": 1,
+        "manha": 0,
         "tarde": 0,
         "noite": 0
       },
       "quinta": {
-        "manha": 0,
+        "manha": 1,
         "tarde": 0,
         "noite": 0
       },
@@ -27,51 +27,51 @@
         "noite": 0
       },
       "sábado": {
-        "manha": 0,
-        "tarde": 1,
+        "manha": 1,
+        "tarde": 0,
         "noite": 0
       },
       "domingo": {
         "manha": 1,
-        "tarde": 1,
-        "noite": 0
+        "tarde": 0,
+        "noite": 1
       }
     },
     "2": {
       "segunda": {
         "manha": 1,
-        "tarde": 1,
-        "noite": 1
+        "tarde": 0,
+        "noite": 0
       },
       "terça": {
-        "manha": 0,
-        "tarde": 0,
+        "manha": 1,
+        "tarde": 1,
         "noite": 0
       },
       "quarta": {
         "manha": 0,
-        "tarde": 1,
-        "noite": 1
+        "tarde": 0,
+        "noite": 0
       },
       "quinta": {
         "manha": 0,
         "tarde": 0,
-        "noite": 0
+        "noite": 1
       },
       "sexta": {
-        "manha": 0,
+        "manha": 1,
         "tarde": 1,
         "noite": 1
       },
       "sábado": {
-        "manha": 1,
+        "manha": 0,
         "tarde": 0,
-        "noite": 0
+        "noite": 1
       },
       "domingo": {
-        "manha": 0,
+        "manha": 1,
         "tarde": 1,
-        "noite": 1
+        "noite": 0
       }
     },
     "3": {
@@ -82,7 +82,7 @@
       },
       "terça": {
         "manha": 0,
-        "tarde": 1,
+        "tarde": 0,
         "noite": 0
       },
       "quarta": {
@@ -93,20 +93,20 @@
       "quinta": {
         "manha": 0,
         "tarde": 0,
-        "noite": 0
+        "noite": 1
       },
       "sexta": {
         "manha": 0,
-        "tarde": 0,
-        "noite": 0
-      },
-      "sábado": {
-        "manha": 1,
-        "tarde": 0,
+        "tarde": 1,
         "noite": 1
       },
+      "sábado": {
+        "manha": 0,
+        "tarde": 1,
+        "noite": 0
+      },
       "domingo": {
-        "manha": 1,
+        "manha": 0,
         "tarde": 0,
         "noite": 0
       }
@@ -119,7 +119,7 @@
       },
       "terça": {
         "manha": 0,
-        "tarde": 0,
+        "tarde": 1,
         "noite": 0
       },
       "quarta": {
@@ -128,31 +128,31 @@
         "noite": 0
       },
       "quinta": {
-        "manha": 1,
-        "tarde": 0,
+        "manha": 0,
+        "tarde": 1,
         "noite": 0
       },
       "sexta": {
-        "manha": 1,
-        "tarde": 1,
+        "manha": 0,
+        "tarde": 0,
         "noite": 0
       },
       "sábado": {
         "manha": 0,
         "tarde": 0,
-        "noite": 0
+        "noite": 1
       },
       "domingo": {
         "manha": 0,
-        "tarde": 0,
-        "noite": 1
+        "tarde": 1,
+        "noite": 0
       }
     },
     "5": {
       "segunda": {
-        "manha": 0,
-        "tarde": 0,
-        "noite": 0
+        "manha": 1,
+        "tarde": 1,
+        "noite": 1
       },
       "terça": {
         "manha": 0,
@@ -160,64 +160,64 @@
         "noite": 1
       },
       "quarta": {
-        "manha": 0,
-        "tarde": 0,
-        "noite": 1
-      },
-      "quinta": {
-        "manha": 0,
-        "tarde": 1,
-        "noite": 1
-      },
-      "sexta": {
         "manha": 1,
         "tarde": 1,
         "noite": 0
       },
-      "sábado": {
+      "quinta": {
         "manha": 0,
         "tarde": 0,
         "noite": 0
       },
+      "sexta": {
+        "manha": 1,
+        "tarde": 0,
+        "noite": 0
+      },
+      "sábado": {
+        "manha": 0,
+        "tarde": 1,
+        "noite": 1
+      },
       "domingo": {
         "manha": 0,
         "tarde": 0,
-        "noite": 0
+        "noite": 1
       }
     },
     "6": {
       "segunda": {
         "manha": 0,
-        "tarde": 0,
+        "tarde": 1,
         "noite": 1
       },
       "terça": {
         "manha": 1,
-        "tarde": 1,
+        "tarde": 0,
         "noite": 1
       },
       "quarta": {
-        "manha": 1,
+        "manha": 0,
         "tarde": 1,
-        "noite": 0
+        "noite": 1
       },
       "quinta": {
         "manha": 1,
         "tarde": 1,
-        "noite": 1
+        "noite": 0
       },
       "sexta": {
         "manha": 0,
         "tarde": 0,
-        "noite": 1
+        "noite": 0
       },
       "sábado": {
-        "manha": 0,
+        "manha": 1,
         "tarde": 1,
         "noite": 1
       },
       "domingo": {
-        "manha": 0,
+        "manha": 1,
         "tarde": 0,
         "noite": 0
       }

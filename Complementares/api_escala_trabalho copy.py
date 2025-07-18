@@ -6,6 +6,7 @@ Framework: FastAPI
 Funcionalidades:
 - Gerar escala otimizada usando algoritmo genético
 - Validar escalas existentes
+- Reparar escalas com violações
 - Configurar parâmetros do algoritmo
 """
 
@@ -13,6 +14,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from typing import List, Dict, Optional, Any
 import random
+import numpy as np
 from datetime import datetime
 
 # Inicializar FastAPI
@@ -36,6 +38,7 @@ class ParametrosAlgoritmo(BaseModel):
     n_geracoes: int = Field(default=80, ge=10, le=200, description="Número de gerações")
     taxa_mutacao: float = Field(default=0.2, ge=0.01, le=1.0, description="Taxa de mutação")
     usar_elitismo: bool = Field(default=False, description="Usar elitismo na evolução")
+    usar_reparo: bool = Field(default=False, description="Aplicar reparo automático")
 
 class ConfiguracaoEscala(BaseModel):
     funcionarios: List[Funcionario]
@@ -43,6 +46,11 @@ class ConfiguracaoEscala(BaseModel):
     folgas_obrigatorias: int = Field(default=1, ge=0, le=7, description="Mínimo de folgas por semana")
     cobertura_minima: int = Field(default=2, ge=1, le=10, description="Mínimo de funcionários por turno")
     parametros: Optional[ParametrosAlgoritmo] = None
+
+class TurnoTrabalho(BaseModel):
+    funcionario_id: int
+    dia: str
+    turno: str
 
 class EscalaCompleta(BaseModel):
     escala: Dict[int, Dict[str, Dict[str, int]]]
@@ -168,6 +176,34 @@ class EscalaGenetica:
                     individuo[f.id][dia][turno] = 1  # Adiciona o turno
         return individuo
 
+    def reparar_individuo(self, individuo: Dict) -> Dict:
+        """Função de reparo separada (não usada na otimização principal)"""
+        reparado = {f.id: {dia: {turno: individuo[f.id][dia][turno] 
+                                for turno in TURNOS} for dia in DIAS_SEMANA} for f in self.funcionarios}
+        
+        for f in self.funcionarios:
+            turnos_ocupados = [(dia, turno) for dia in DIAS_SEMANA for turno in TURNOS 
+                              if reparado[f.id][dia][turno] == 1]
+            
+            # Remover excesso
+            if len(turnos_ocupados) > self.carga_max_semanal:
+                excesso = len(turnos_ocupados) - self.carga_max_semanal
+                turnos_para_remover = random.sample(turnos_ocupados, excesso)
+                for dia, turno in turnos_para_remover:
+                    reparado[f.id][dia][turno] = 0
+            
+            # Adicionar se necessário
+            elif len(turnos_ocupados) < self.carga_max_semanal:
+                turnos_livres = [(dia, turno) for dia in DIAS_SEMANA for turno in TURNOS 
+                                if reparado[f.id][dia][turno] == 0]
+                if turnos_livres:
+                    faltam = min(self.carga_max_semanal - len(turnos_ocupados), len(turnos_livres))
+                    turnos_para_adicionar = random.sample(turnos_livres, faltam)
+                    for dia, turno in turnos_para_adicionar:
+                        reparado[f.id][dia][turno] = 1
+        
+        return reparado
+
     def otimizar(self) -> tuple:
         """Executa o algoritmo genético completo - LÓGICA EXATA DO NOTEBOOK"""
         import time
@@ -213,6 +249,21 @@ class EscalaGenetica:
 # ================================
 # ENDPOINTS DA API
 # ================================
+
+@app.get("/")
+async def root():
+    """Endpoint raiz com informações da API"""
+    return {
+        "nome": "API de Otimização de Escalas de Trabalho",
+        "versao": "1.0.0",
+        "descricao": "Sistema inteligente para geração e otimização de escalas usando algoritmos genéticos",
+        "endpoints": {
+            "/otimizar": "Gerar escala otimizada",
+            "/validar": "Validar escala existente",
+            "/reparar": "Reparar escala com violações",
+            "/docs": "Documentação interativa (Swagger)"
+        }
+    }
 
 @app.post("/otimizar", response_model=ResultadoOtimizacao)
 async def otimizar_escala(config: ConfiguracaoEscala):
@@ -290,6 +341,51 @@ async def validar_escala(dados: EscalaCompleta):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro na validação: {str(e)}")
 
+@app.post("/reparar")
+async def reparar_escala(dados: EscalaCompleta):
+    """
+    Repara uma escala com violações aplicando correções automáticas
+    
+    - **escala**: Escala com possíveis violações
+    - **funcionarios**: Lista de funcionários correspondente
+    """
+    try:
+        # Criar configuração temporária
+        config_temp = ConfiguracaoEscala(funcionarios=dados.funcionarios)
+        algoritmo = EscalaGenetica(config_temp)
+        
+        # Aplicar reparo
+        escala_reparada = algoritmo.reparar_individuo(dados.escala)
+        
+        # Validar resultado
+        violacoes_antes = len(algoritmo.checar_restricoes(dados.escala))
+        violacoes_depois = len(algoritmo.checar_restricoes(escala_reparada))
+        
+        return {
+            "escala_original": dados.escala,
+            "escala_reparada": escala_reparada,
+            "violacoes_antes": violacoes_antes,
+            "violacoes_depois": violacoes_depois,
+            "melhoria": violacoes_antes - violacoes_depois
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erro no reparo: {str(e)}")
+
+@app.get("/funcionarios/exemplo")
+async def exemplo_funcionarios():
+    """Retorna um exemplo de lista de funcionários para testes"""
+    return {
+        "funcionarios": [
+            {"id": 1, "nome": "Ana", "preferencias_folga": ["domingo"]},
+            {"id": 2, "nome": "Bruno", "preferencias_folga": ["sábado"]},
+            {"id": 3, "nome": "Carla", "preferencias_folga": ["segunda"]},
+            {"id": 4, "nome": "Diego", "preferencias_folga": ["terça"]},
+            {"id": 5, "nome": "Elisa", "preferencias_folga": ["quarta"]},
+            {"id": 6, "nome": "Felipe", "preferencias_folga": ["sexta"]}
+        ]
+    }
+
 @app.get("/configuracao/exemplo")
 async def exemplo_configuracao():
     """Retorna um exemplo completo de configuração para otimização"""
@@ -309,7 +405,8 @@ async def exemplo_configuracao():
             "pop_size": 30,
             "n_geracoes": 100,
             "taxa_mutacao": 0.2,
-            "usar_elitismo": True
+            "usar_elitismo": True,
+            "usar_reparo": True
         }
     }
 

@@ -6,7 +6,6 @@ Sistema inteligente para geração e otimização de escalas de trabalho usando 
 
 - 🧬 **Otimização Inteligente**: Gera escalas otimizadas usando algoritmos genéticos
 - ✅ **Validação de Escalas**: Verifica se uma escala atende todas as restrições
-- 🔧 **Reparo Automático**: Corrige escalas com violações automaticamente
 - ⚙️ **Configuração Flexível**: Parâmetros ajustáveis para diferentes cenários
 - 📖 **Documentação Automática**: Interface Swagger gerada automaticamente
 - 🚀 **Alta Performance**: Otimizado para processar escalas complexas rapidamente
@@ -16,7 +15,6 @@ Sistema inteligente para geração e otimização de escalas de trabalho usando 
 - **Python 3.8+**
 - **FastAPI**: Framework web moderno e rápido
 - **Pydantic**: Validação de dados e serialização
-- **NumPy**: Computação numérica eficiente
 - **Uvicorn**: Servidor ASGI de alta performance
 
 ## 📋 Restrições Suportadas
@@ -65,20 +63,13 @@ Gera uma escala otimizada usando algoritmo genético.
     "pop_size": 30,
     "n_geracoes": 100,
     "taxa_mutacao": 0.2,
-    "usar_elitismo": true,
-    "usar_reparo": true
+    "usar_elitismo": true
   }
 }
 ```
 
 ### ✅ POST `/validar`
 Valida uma escala existente e retorna violações encontradas.
-
-### 🔧 POST `/reparar`
-Repara uma escala com violações aplicando correções automáticas.
-
-### 📋 GET `/funcionarios/exemplo`
-Retorna uma lista de funcionários de exemplo para testes.
 
 ### ⚙️ GET `/configuracao/exemplo`
 Retorna uma configuração completa de exemplo.
