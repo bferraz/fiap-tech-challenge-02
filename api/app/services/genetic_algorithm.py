@@ -13,7 +13,6 @@ from app.models.schemas import ConfiguracaoEscala, ParametrosAlgoritmo
 class EscalaGeneticaService:
     """
     Serviço para otimização de escalas usando algoritmos genéticos.
-    Implementação EXATA das 4 primeiras células do notebook.
     """
     
     def __init__(self, config: ConfiguracaoEscala):
@@ -29,7 +28,7 @@ class EscalaGeneticaService:
             self.params = ParametrosAlgoritmo()
 
     def checar_restricoes(self, escala: Dict) -> List[str]:
-        """Verifica todas as restrições da escala - EXATA DO NOTEBOOK"""
+        """Verifica todas as restrições da escala"""
         violacoes = []
         
         # 1. Carga horária máxima e folgas obrigatórias
@@ -53,12 +52,12 @@ class EscalaGeneticaService:
         return violacoes
 
     def avaliar_individuo(self, individuo: Dict) -> int:
-        """Avaliação do indivíduo (número de violações) - EXATA DO NOTEBOOK"""
+        """Avaliação do indivíduo (número de violações)"""
         violacoes = self.checar_restricoes(individuo)
         return len(violacoes)
 
     def gerar_individuo(self) -> Dict:
-        """Geração de individuo aleatório (escala de trabalho) - EXATA DO NOTEBOOK"""
+        """Geração de individuo aleatório (escala de trabalho)"""
         escala = {f.id: {dia: {turno: 0 for turno in TURNOS} for dia in DIAS_SEMANA} for f in self.funcionarios}
         
         for f in self.funcionarios:
@@ -70,7 +69,7 @@ class EscalaGeneticaService:
         return escala
 
     def selecionar_pais(self, populacao: List[Dict]) -> List[Dict]:
-        """Seleção de pais (torneio) - EXATA DO NOTEBOOK"""
+        """Seleção de pais (torneio)"""
         pais = []
         for _ in range(2):
             torneio = random.sample(populacao, 3)
@@ -79,7 +78,7 @@ class EscalaGeneticaService:
         return pais
 
     def cruzar_pais(self, pai1: Dict, pai2: Dict) -> Dict:
-        """Cruzamento de pais - EXATA DO NOTEBOOK"""
+        """Cruzamento de pais"""
         filho = {}
         
         for funcionario_id in pai1.keys():
@@ -96,7 +95,7 @@ class EscalaGeneticaService:
         return filho
 
     def mutar_individuo(self, individuo: Dict) -> Dict:
-        """Mutação do indivíduo - EXATA DO NOTEBOOK"""
+        """Mutação do indivíduo"""
         for f in self.funcionarios:
             if random.random() < self.params.taxa_mutacao:
                 dia = random.choice(DIAS_SEMANA)
@@ -108,7 +107,7 @@ class EscalaGeneticaService:
         return individuo
 
     def otimizar(self) -> Tuple[Dict, List[int], float]:
-        """Executa o algoritmo genético completo - LÓGICA EXATA DO NOTEBOOK"""
+        """Executa o algoritmo genético completo"""
         inicio = time.time()
         
         # Inicialização da população
