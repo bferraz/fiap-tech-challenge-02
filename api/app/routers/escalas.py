@@ -69,8 +69,8 @@ async def validar_escala(dados: EscalaCompleta):
     """
     Valida uma escala existente verificando todas as restrições
     
-    - **escala**: Escala completa para validação
-    - **funcionarios**: Lista de funcionários correspondente
+    - **escala**: Escala completa para validação (dict com id do funcionário como chave)
+    - **funcionarios**: Lista de funcionários correspondente        
     """
     try:
         # Criar configuração temporária para validação

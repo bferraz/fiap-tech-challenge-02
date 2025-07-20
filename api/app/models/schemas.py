@@ -77,6 +77,77 @@ class EscalaCompleta(BaseModel):
     """Modelo para escala completa"""
     escala: Dict[int, Dict[str, Dict[str, int]]]
     funcionarios: List[Funcionario]
+    
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "escala": {
+                    "1": {
+                        "segunda": {"manha": 0, "tarde": 0, "noite": 0},
+                        "terça": {"manha": 0, "tarde": 0, "noite": 0},
+                        "quarta": {"manha": 0, "tarde": 0, "noite": 0},
+                        "quinta": {"manha": 1, "tarde": 0, "noite": 0},
+                        "sexta": {"manha": 0, "tarde": 0, "noite": 0},
+                        "sábado": {"manha": 1, "tarde": 0, "noite": 0},
+                        "domingo": {"manha": 1, "tarde": 0, "noite": 1}
+                    },
+                    "2": {
+                        "segunda": {"manha": 1, "tarde": 0, "noite": 0},
+                        "terça": {"manha": 1, "tarde": 1, "noite": 0},
+                        "quarta": {"manha": 0, "tarde": 0, "noite": 0},
+                        "quinta": {"manha": 0, "tarde": 0, "noite": 1},
+                        "sexta": {"manha": 1, "tarde": 1, "noite": 1},
+                        "sábado": {"manha": 0, "tarde": 0, "noite": 1},
+                        "domingo": {"manha": 1, "tarde": 1, "noite": 0}
+                    },
+                    "3": {
+                        "segunda": {"manha": 0, "tarde": 0, "noite": 0},
+                        "terça": {"manha": 0, "tarde": 0, "noite": 0},
+                        "quarta": {"manha": 0, "tarde": 0, "noite": 1},
+                        "quinta": {"manha": 0, "tarde": 0, "noite": 1},
+                        "sexta": {"manha": 0, "tarde": 1, "noite": 1},
+                        "sábado": {"manha": 0, "tarde": 1, "noite": 0},
+                        "domingo": {"manha": 0, "tarde": 0, "noite": 0}
+                    },
+                    "4": {
+                        "segunda": {"manha": 1, "tarde": 0, "noite": 0},
+                        "terça": {"manha": 0, "tarde": 1, "noite": 0},
+                        "quarta": {"manha": 1, "tarde": 0, "noite": 0},
+                        "quinta": {"manha": 0, "tarde": 1, "noite": 0},
+                        "sexta": {"manha": 0, "tarde": 0, "noite": 0},
+                        "sábado": {"manha": 0, "tarde": 0, "noite": 1},
+                        "domingo": {"manha": 0, "tarde": 1, "noite": 0}
+                    },
+                    "5": {
+                        "segunda": {"manha": 1, "tarde": 1, "noite": 1},
+                        "terça": {"manha": 0, "tarde": 0, "noite": 1},
+                        "quarta": {"manha": 1, "tarde": 1, "noite": 0},
+                        "quinta": {"manha": 0, "tarde": 0, "noite": 0},
+                        "sexta": {"manha": 1, "tarde": 0, "noite": 0},
+                        "sábado": {"manha": 0, "tarde": 1, "noite": 1},
+                        "domingo": {"manha": 0, "tarde": 0, "noite": 1}
+                    },
+                    "6": {
+                        "segunda": {"manha": 0, "tarde": 1, "noite": 1},
+                        "terça": {"manha": 1, "tarde": 0, "noite": 1},
+                        "quarta": {"manha": 0, "tarde": 1, "noite": 1},
+                        "quinta": {"manha": 1, "tarde": 1, "noite": 0},
+                        "sexta": {"manha": 0, "tarde": 0, "noite": 0},
+                        "sábado": {"manha": 1, "tarde": 1, "noite": 1},
+                        "domingo": {"manha": 1, "tarde": 0, "noite": 0}
+                    }
+                },
+                "funcionarios": [
+                    {"id": 1, "nome": "Ana", "preferencias_folga": ["domingo"]},
+                    {"id": 2, "nome": "Bruno", "preferencias_folga": ["sábado"]},
+                    {"id": 3, "nome": "Carla", "preferencias_folga": ["segunda"]},
+                    {"id": 4, "nome": "Diego", "preferencias_folga": ["terça"]},
+                    {"id": 5, "nome": "Elisa", "preferencias_folga": ["quarta"]},
+                    {"id": 6, "nome": "Felipe", "preferencias_folga": ["sexta"]}
+                ]
+            }
+        }
+    }
 
 
 class ResultadoOtimizacao(BaseModel):
