@@ -1,4 +1,4 @@
-# 🏢 API de Otimização de Escalas de Trabalho - Versão Profissional
+# 🏢 API de Otimização de Escalas de Trabalho
 
 Sistema inteligente para geração e otimização de escalas de trabalho usando **Algoritmos Genéticos** desenvolvido em **Python** com **FastAPI**.
 
